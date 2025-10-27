@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+}
+
+/* Temel responsive yapı */
+.container, .form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+input, button {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* Mobil için media query */
+@media (max-width: 600px) {
+  .container, .form {
+    max-width: 100%;
+    padding: 8px;
+  }
+  input, button {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
