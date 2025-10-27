@@ -120,7 +120,7 @@ export default function TokenForm() {
           required
         />
         <ReCAPTCHA
-          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY || "senin_recaptcha_site_keyin"}
+          sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY || "REPLACE_WITH_KEY"}
           onChange={(token) => setCaptcha(token)}
         />
         <button type="submit" disabled={loading}>

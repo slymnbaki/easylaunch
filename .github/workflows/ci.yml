@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install root deps
+        run: npm ci
+      - name: Run Hardhat tests
+        run: npx hardhat test --show-stack-traces
+      - name: Run backend tests
+        run: npm --prefix backend ci && npm --prefix backend test -- --runInBand
+      - name: Run frontend tests
+        run: npm --prefix frontend ci && npm --prefix frontend test -- --watchAll=false
