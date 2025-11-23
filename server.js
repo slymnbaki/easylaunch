@@ -11,9 +11,9 @@ app.use(express.json());
 app.get("/api/ping", (req, res) => res.json({ ok: true }));
 
 // static frontend (prod)
-app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
+app.use(express.static(path.join(__dirname, "frontend", "build")));
 app.get("*", (req, res) => {
-  const index = path.join(__dirname, "..", "frontend", "build", "index.html");
+  const index = path.join(__dirname, "frontend", "build", "index.html");
   if (require("fs").existsSync(index)) {
     return res.sendFile(index);
   }

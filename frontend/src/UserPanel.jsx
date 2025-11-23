@@ -9,7 +9,11 @@ function UserPanel() {
 
   useEffect(() => {
     axios.get(`/api/tokens/user/${userId}`)
-      .then(res => setTokens(res.data))
+      .then(res => {
+        // API response'u array'e çevir
+        const data = Array.isArray(res.data) ? res.data : res.data.tokens || [];
+        setTokens(data);
+      })
       .catch(() => setTokens([]));
   }, [userId]);
 
@@ -28,7 +32,7 @@ function UserPanel() {
       {selectedToken && (
         <div>
           <TokenDetail token={selectedToken} />
-          <button onClick={() => setSelectedToken(null)}>Detayı Kapat</button>
+          <button onClick={() => setSelectedToken(null)}>Kapat</button>
         </div>
       )}
     </div>

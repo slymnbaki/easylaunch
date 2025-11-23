@@ -4,7 +4,7 @@ export default function TokenGallery() {
   const [tokens, setTokens] = useState([]);
 
   useEffect(() => {
-    fetch("https://localhost:3001/api/tokens")
+    fetch("https://localhost:5000/api/tokens")
       .then(res => res.json())
       .then(data => setTokens(data.tokens));
   }, []);

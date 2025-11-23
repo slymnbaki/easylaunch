@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const app = express();
 
 // Allow front-end dev server
@@ -89,5 +90,21 @@ app.post("/api/reset-password/confirm", (req, res) => {
 // token endpoints are implemented in ./routes/tokens.js and mounted below
 const tokensRouter = require("./routes/tokens");
 app.use("/api/tokens", tokensRouter);
+
+// Import all production routes
+const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
+const adminRouter = require("./routes/admin");
+const launchpadRouter = require("./routes/launchpad");
+const auditRouter = require("./routes/audit");
+const whitepaperRouter = require("./routes/whitepaper");
+
+// Mount routes
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/launchpad", launchpadRouter);
+app.use("/api/audit", auditRouter);
+app.use("/api/whitepaper", whitepaperRouter);
 
 module.exports = app;

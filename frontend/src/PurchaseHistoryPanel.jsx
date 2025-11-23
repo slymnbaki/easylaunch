@@ -7,7 +7,10 @@ function PurchaseHistoryPanel() {
 
   useEffect(() => {
     axios.get(`/api/launchpad/purchases/${buyer}`)
-      .then(res => setPurchases(res.data))
+      .then(res => {
+        const data = Array.isArray(res.data) ? res.data : res.data.purchases || [];
+        setPurchases(data);
+      })
       .catch(() => setPurchases([]));
   }, [buyer]);
 

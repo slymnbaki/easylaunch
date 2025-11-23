@@ -9,7 +9,10 @@ function AdminKYCPanel() {
 
   useEffect(() => {
     axios.get("/api/users/kyc-list")
-      .then(res => setUsers(res.data))
+      .then(res => {
+        const data = Array.isArray(res.data) ? res.data : res.data.users || [];
+        setUsers(data);
+      })
       .catch(() => setUsers([]));
   }, []);
 

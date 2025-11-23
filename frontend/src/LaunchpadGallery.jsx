@@ -6,7 +6,10 @@ function LaunchpadGallery() {
 
   useEffect(() => {
     axios.get("/api/launchpad/list")
-      .then(res => setLaunchpads(res.data))
+      .then(res => {
+        const data = Array.isArray(res.data) ? res.data : res.data.launchpads || [];
+        setLaunchpads(data);
+      })
       .catch(() => setLaunchpads([]));
   }, []);
 

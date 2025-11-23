@@ -4,9 +4,13 @@ export default function MyTokens({ username }) {
   const [tokens, setTokens] = useState([]);
 
   useEffect(() => {
-    fetch(`https://localhost:3001/api/tokens?user=${username}`)
+    const API_URL = process.env.REACT_APP_API_URL || "";
+    fetch(`${API_URL}/api/tokens?user=${username}`)
       .then(res => res.json())
-      .then(data => setTokens(data.tokens));
+      .then(data => {
+        const tokens = Array.isArray(data) ? data : data.tokens || [];
+        setTokens(tokens);
+      });
   }, [username]);
 
   return (

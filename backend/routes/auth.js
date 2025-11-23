@@ -112,9 +112,3 @@ router.get("/admin/some-action", isAdmin, (req, res) => {
 
 module.exports = router;
 
-const UserSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  email: String,
-  role: { type: String, default: "user" } // "admin" veya "user"
-});

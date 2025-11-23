@@ -4,7 +4,14 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: String,
   kycStatus: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
-  // Diğer kullanıcı alanları eklenebilir
+  username: String,
+  verifyToken: String,
+  isVerified: { type: Boolean, default: false },
+  resetToken: String,
+  resetTokenExpires: Date,
+  role: { type: String, default: "user" }
 });
 
-module.exports = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;

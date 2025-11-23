@@ -12,7 +12,8 @@ export default function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("https://localhost:3001/api/me", {
+      const API_URL = process.env.REACT_APP_API_URL || "";
+      fetch(`${API_URL}/api/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => res.json())

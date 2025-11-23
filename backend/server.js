@@ -56,13 +56,16 @@ app.use(cors({
 // Optional: simple health-check route (useful for load balancers)
 app.get("/healthz", (req, res) => res.json({ ok: true, timestamp: Date.now() }));
 
-// Serve frontend build when in production
-if (process.env.NODE_ENV === "production") {
-  app.use(require("express").static(path.join(__dirname, "..", "frontend", "build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"))
-  );
-}
+// Serve frontend build (development ve production için)
+const frontendBuildPath = path.join(__dirname, "..", "frontend", "build");
+app.use(require("express").static(frontendBuildPath));
+
+// API olmayan tüm route'ları frontend'e yönlendir
+app.get("*", (req, res) => {
+  // API route'larını atla
+  if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'Not found' });
+  res.sendFile(path.join(frontendBuildPath, "index.html"));
+});
 
 // start server and print server.address
 const server = app.listen(port, "0.0.0.0", () => {
@@ -106,3 +109,6 @@ process.on("uncaughtException", (err) => {
 process.on("unhandledRejection", (reason, p) => {
   console.error("Unhandled Rejection at:", p, "reason:", reason);
 });
+
+// frontend/public/index.html kontrol et - <head> içinde olmalı:
+<link rel="stylesheet" href="%PUBLIC_URL%/index.css" />

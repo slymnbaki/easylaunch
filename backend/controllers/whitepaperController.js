@@ -17,10 +17,3 @@ Tarih: ${token.createdAt}
   `;
   res.type("text/plain").send(doc);
 };
-
-// TokenGallery bileşeninde tablo satırına ekle
-<td>
-  <button onClick={() => window.open(`/api/whitepaper/${token._id}`, "_blank")}>
-    Whitepaper
-  </button>
-</td>
