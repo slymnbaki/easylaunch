@@ -1,110 +1,110 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const app = express();
 
-// Allow front-end dev server
+
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+const app = express();
+const Sentry = require('@sentry/node');
+Sentry.init({ dsn: process.env.SENTRY_DSN || 'https://examplePublicKey@o0.ingest.sentry.io/0' });
+
+
+
+// Global rate limit (örnek: 100 istek/15dk)
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { error: "Çok fazla istek, lütfen daha sonra tekrar deneyin." }
+});
+app.use(globalLimiter);
+
+// Auth ve kritik endpointler için daha sıkı limit
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { error: "Çok fazla deneme, lütfen daha sonra tekrar deneyin." }
+});
+app.use("/api/auth", authLimiter);
+app.use("/api/register", authLimiter);
+app.use("/api/login", authLimiter);
+const authRouter = require("./routes/auth");
+const feedbackRouter = require("./routes/feedback");
+const apikeyRouter = require("./routes/apikey");
+const swaggerRouter = require("./swagger");
+const securityRouter = require("./routes/security");
+const kycRouter = require("./routes/kyc");
+
+
+// Middleware
+app.use(helmet());
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
+app.use(cookieParser());
+// app.use(csrf({ cookie: true })); // CSRF sadece kritik route'larda kullanılacak
 
-// Basit in-memory mock DB (testlerde kullanılacak)
-const users = [];
-const tokens = [];
-const resetTokens = new Map();
-
-// Ping (önceden varsa bırak)
-app.get("/api/ping", (req, res) => res.json({ ok: true }));
-
-// --- Add legacy create-token endpoint expected by tests ---
-app.post("/api/create-token", (req, res) => {
-  const { name, symbol, desc, userAddress, paymentMethod } = req.body || {};
-  if (!name || !symbol) return res.status(400).json({ success: false });
-  const t = { id: tokens.length + 1, name, symbol, desc, owner: userAddress, paymentMethod };
-  tokens.push(t);
-  return res.json({ success: true, token: t });
-});
-
-// --- Admin middleware + test endpoint expected by tests ---
-// If request does not indicate admin role, return 403 with Turkish message expected by tests.
-app.use("/api/admin", (req, res, next) => {
-  const role = (req.headers["x-user-role"] || req.body?.role || "user").toString();
-  if (role !== "admin") return res.status(403).json({ message: "Yetkisiz erişim" });
-  next();
-});
-
-app.get("/api/admin/some-action", (req, res) => {
-  return res.json({ success: true });
-});
-
-// Register
-app.post("/api/register", (req, res) => {
-  const { username, password, email } = req.body || {};
-  if (!username || !password || !email) {
-    return res.status(400).json({ success: false, message: "Eksik alan" });
-  }
-  if (users.find(u => u.username === username || u.email === email)) {
-    return res.status(400).json({ success: false, message: "Kullanıcı zaten var" });
-  }
-  users.push({ username, password, email, role: "user" });
-  return res.json({ success: true });
-});
-
-// Login
-app.post("/api/login", (req, res) => {
-  const { username, password } = req.body || {};
-  const user = users.find(u => u.username === username);
-  if (!user || user.password !== password) {
-    return res.status(401).json({ success: false, message: "Giriş başarısız" });
-  }
-  return res.json({ success: true, user: { username: user.username, email: user.email } });
-});
-
-// Request password reset
-app.post("/api/reset-password", (req, res) => {
-  const { email } = req.body || {};
-  const user = users.find(u => u.email === email);
-  // güvenlik için her zaman 200 dönebiliriz; test bekliyor 200
-  if (user) {
-    const token = `reset-${Date.now()}`;
-    resetTokens.set(token, user.email);
-    // normally we'd send email; here we just return token for tests if needed
-    return res.json({ success: true, token });
-  }
-  return res.json({ success: true });
-});
-
-// Confirm password reset
-app.post("/api/reset-password/confirm", (req, res) => {
-  const { token, newPassword } = req.body || {};
-  const email = resetTokens.get(token);
-  if (!email) {
-    return res.status(400).json({ success: false, message: "Invalid token" });
-  }
-  const user = users.find(u => u.email === email);
-  if (!user) return res.status(400).json({ success: false });
-  user.password = newPassword;
-  resetTokens.delete(token);
-  return res.json({ success: true });
-});
-
-// token endpoints are implemented in ./routes/tokens.js and mounted below
-const tokensRouter = require("./routes/tokens");
-app.use("/api/tokens", tokensRouter);
-
-// Import all production routes
-const authRouter = require("./routes/auth");
-const userRouter = require("./routes/user");
-const adminRouter = require("./routes/admin");
-const launchpadRouter = require("./routes/launchpad");
-const auditRouter = require("./routes/audit");
-const whitepaperRouter = require("./routes/whitepaper");
-
-// Mount routes
 app.use("/api/auth", authRouter);
-app.use("/api/users", userRouter);
-app.use("/api/admin", adminRouter);
-app.use("/api/launchpad", launchpadRouter);
-app.use("/api/audit", auditRouter);
-app.use("/api/whitepaper", whitepaperRouter);
+app.use("/api/feedback", feedbackRouter);
+app.use("/api/apikey", apikeyRouter);
+app.use("/api/docs", swaggerRouter);
+app.use("/api/security", securityRouter);
+app.use("/api/kyc", kycRouter);
+
+// ✅ Rate Limiter 
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 dakika
+  max: 10, // Her IP'den max 10 request
+  message: { 
+    success: false, 
+    message: '⏱️ Çok fazla istek! Lütfen 1 dakika bekleyin.' 
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// MongoDB Bağlantısı
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/easylaunch";
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log("✅ MongoDB bağlandı"))
+  .catch(err => console.log("⚠️ MongoDB bağlantı hatası:", err.message));
+
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({ ok: true, mongodb: mongoose.connection.readyState === 1 });
+});
+
+
+const authRoutes = require("./routes/auth");
+const tokenRoutes = require("./routes/token");
+const paymentRoutes = require("./routes/payment"); 
+tokenRoutes.post("/save-token", limiter);
+tokenRoutes.post("/create-token", limiter);
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/tokens", tokenRoutes);
+app.use("/api/payments", paymentRoutes); 
+app.use("/api/admin", require("./routes/admin"));
+app.use("/api/user", require("./routes/user"));        
+app.use("/api/users", require("./routes/user"));       
+app.use("/api/launchpad", require("./routes/launchpad")); 
+
+const aiRouter = require("./routes/ai");
+app.use("/api/ai", aiRouter);
+
+
+const aiAuditRouter = require("./routes/aiAudit");
+app.use("/api/ai-audit", aiAuditRouter);
+
+// Swap route
+
+const nftRouter = require("./routes/nft");
+app.use("/api/nft", nftRouter);
+
+const swapRouter = require("./routes/swap");
+app.use("/api/swap", swapRouter);
 
 module.exports = app;

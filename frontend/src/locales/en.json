@@ -1,0 +1,13 @@
+{
+  "ai_title": "AI Token Assistant",
+  "ai_how": "Enter brief info to get name, symbol and description suggestions for your project.",
+  "ai_category_placeholder": "Category (e.g. DeFi, NFT)",
+  "ai_purpose_placeholder": "Token Purpose",
+  "ai_audience_placeholder": "Target Audience (optional)",
+  "ai_budget_placeholder": "Budget (optional)",
+  "ai_suggestion_button": "Get Suggestion",
+  "ai_loading": "Loading...",
+  "ai_refresh": "Refresh",
+  "ai_info": "AI suggestions are generated automatically via OpenAI and are not investment advice.",
+  "ai_examples": "Example category: DeFi, NFT, GameFi | Example purpose: Community rewards, In-game economy"
+}

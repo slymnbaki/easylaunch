@@ -12,6 +12,7 @@ dist/
 
 # Env
 .env
+.env.local
 *.env
 
 # IDE

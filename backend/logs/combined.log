@@ -1,0 +1,32 @@
+info: Starting backend server... {"timestamp":"2025-12-11T17:45:07.976Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T17:45:07.983Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T18:04:40.015Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T18:04:40.022Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T18:05:59.337Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T18:05:59.343Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T18:10:20.242Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T18:10:20.248Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T18:40:45.781Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T18:40:45.788Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T18:49:45.674Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T18:49:45.679Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T19:01:07.602Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T19:01:07.608Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T19:08:15.923Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T19:08:15.928Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T19:49:54.930Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T19:49:54.937Z"}
+info: Starting backend server... {"timestamp":"2025-12-11T19:57:20.676Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-11T19:57:20.681Z"}
+info: Starting backend server... {"timestamp":"2025-12-12T16:46:32.889Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-12T16:46:32.894Z"}
+info: Starting backend server... {"timestamp":"2025-12-14T08:16:17.490Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-14T08:16:17.495Z"}
+info: Starting backend server... {"timestamp":"2025-12-14T09:58:30.616Z"}
+error: Uncaught Exception: Error: listen EADDRINUSE: address already in use 0.0.0.0:5000 {"timestamp":"2025-12-14T09:58:30.625Z"}
+info: Starting backend server... {"timestamp":"2025-12-14T10:00:01.412Z"}
+error: Uncaught Exception: Error: listen EADDRINUSE: address already in use 0.0.0.0:5000 {"timestamp":"2025-12-14T10:00:01.421Z"}
+info: Starting backend server... {"timestamp":"2025-12-14T10:02:29.823Z"}
+error: Uncaught Exception: Error: listen EADDRINUSE: address already in use 0.0.0.0:5000 {"timestamp":"2025-12-14T10:02:29.832Z"}
+info: Starting backend server... {"timestamp":"2025-12-14T16:46:29.904Z"}
+info: ✅ Backend server running on http://localhost:5000 {"timestamp":"2025-12-14T16:46:29.910Z"}

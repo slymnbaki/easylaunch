@@ -1,0 +1,13 @@
+{
+  "ai_title": "Yapay Zeka Token Danışmanı",
+  "ai_how": "Kısa bilgiler girerek, projeniz için isim, sembol ve açıklama önerisi alabilirsiniz.",
+  "ai_category_placeholder": "Kategori (ör. DeFi, NFT)",
+  "ai_purpose_placeholder": "Token Amacı",
+  "ai_audience_placeholder": "Hedef Kitle (isteğe bağlı)",
+  "ai_budget_placeholder": "Bütçe (isteğe bağlı)",
+  "ai_suggestion_button": "Öneri Al",
+  "ai_loading": "Yükleniyor...",
+  "ai_refresh": "Yenile",
+  "ai_info": "AI önerileri OpenAI ile otomatik üretilir, yatırım tavsiyesi değildir.",
+  "ai_examples": "Örnek kategori: DeFi, NFT, GameFi | Örnek amaç: Topluluk ödülleri, Oyun içi ekonomi"
+}

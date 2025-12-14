@@ -1,42 +1,27 @@
-import React from "react";
-import KYCForm from "./KYCForm";
-import TokenForm from "./TokenForm";
-import TokenGallery from "./TokenGallery";
-import AdminKYCPanel from "./AdminKYCPanel";
-import AuditReport from "./AuditReport";
-import LaunchpadForm from "./LaunchpadForm";
-import LaunchpadGallery from "./LaunchpadGallery";
-import AdminStatsPanel from "./AdminStatsPanel";
-import UserPanel from "./UserPanel";
-import TokenTransferForm from "./TokenTransferForm";
-import PurchaseHistoryPanel from "./PurchaseHistoryPanel";
+import CookieNotice from './components/CookieNotice';
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './i18n';
+import './App.css';
+// import { themes } from './themes';
+import { useTranslation } from 'react-i18next';
 
-function App() {
+// Bu dosya artık sadece fallback veya özel sayfa için kullanılabilir.
+export default function App() {
+  const { t, i18n } = useTranslation();
+  // Theme logic removed, always use light theme
+  const currentTheme = { background: '#fff', text: '#222' };
   return (
-    <div>
-      <KYCForm />
-      <hr />
-      <TokenForm />
-      <hr />
-      <TokenGallery />
-      <hr />
-      <AdminKYCPanel />
-      <hr />
-      <AuditReport />
-      <hr />
-      <LaunchpadForm />
-      <hr />
-      <LaunchpadGallery />
-      <hr />
-      <AdminStatsPanel />
-      <hr />
-      <UserPanel />
-      <hr />
-      <TokenTransferForm />
-      <hr />
-      <PurchaseHistoryPanel />
+    <div className="container" style={{textAlign:'center',margin:'4rem auto',background:currentTheme.background,color:currentTheme.text}}>
+      <div style={{marginBottom:16}}>
+        <button onClick={()=>i18n.changeLanguage('tr')}>TR</button>
+        <button onClick={()=>i18n.changeLanguage('en')} style={{marginLeft:8}}>EN</button>
+      </div>
+      <h2>{t('welcome')}</h2>
+      <p>Yönlendirme ve ana layout AppRouter ile yönetiliyor.</p>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
+      <CookieNotice />
     </div>
   );
 }
-
-export default App;

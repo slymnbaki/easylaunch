@@ -2,6 +2,20 @@
 
 Özet: React frontend + Node backend uygulaması. Docker ile tek komutla çalıştırılabilir.
 
+
+## Yeni Özellikler
+
+- **Admin Panel Endpointleri:**
+  - `/api/admin/users` — Tüm kullanıcılar
+  - `/api/admin/tokens` — Tüm tokenlar
+  - `/api/admin/payments` — Tüm ödemeler
+- **Loglama:** Backend’de winston ile tüm önemli işlemler `logs/` klasörüne kaydedilir.
+- **Toast Notification:** Frontend’de işlemler sonrası anlık bildirimler (react-toastify ile)
+- **Testler:**
+  - Frontend: `src/utils/testUtils.test.js`
+  - Backend: `backend/__tests__/sum.test.js`
+- **Yeni Ağlar:** Arbitrum, Optimism, Fantom, zkSync desteği
+
 Quick start (development)
 - Frontend:
   cd frontend

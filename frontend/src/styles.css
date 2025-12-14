@@ -1,43 +1,80 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  padding: 20px;
+/* Neon dalga efektleri */
+.neon-waves {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100vw;
+  height: 180px;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Mobil uyumluluk ve responsive grid */
+.token-gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
 }
 
-h1, h2, h3, h4 {
-  color: #333;
+ .token-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  min-width: 220px;
+  box-shadow: 0 0 8px #22d3ee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-.container, .form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 16px;
-  box-sizing: border-box;
-}
-
-input, button {
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 10px;
-  font-size: 15px;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 10px 20px;
-  margin: 5px;
-  cursor: pointer;
-}
-
-/* Mobil için media query */
 @media (max-width: 600px) {
-  .container, .form {
-    max-width: 100%;
-    padding: 8px;
+  .token-gallery-grid {
+    gap: 12px;
   }
-  input, button {
-    font-size: 16px;
-    padding: 12px;
+  .token-card {
+    min-width: 90vw;
+    padding: 1rem;
+    font-size: 15px;
   }
+  section {
+    padding: 1rem 0 !important;
+  }
+}
+
+.card {
+  background: radial-gradient(circle at top left, #0b1120 0, #020617 50%, #020617 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.08);
+}
+
+ .btn-primary {
+  background-image: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
+  color: #f9fafb;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
+  opacity: 0.95;
+}
+
+ .neon-frame {
+  position: relative;
+  border-radius: 20px;
+  padding: 1px;
+  background-image: linear-gradient(90deg, #38bdf8 0%, #a855f7 100%);
+}
+
+.neon-frame-inner {
+  border-radius: 18px;
+  background: radial-gradient(circle at top, #020617 0, #020617 60%, #000000 100%);
+  padding: 1.5rem;
 }

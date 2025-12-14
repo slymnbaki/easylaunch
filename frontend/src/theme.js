@@ -1,0 +1,32 @@
+// Easylaunch renk paleti ve tema değişkenleri
+const theme = {
+  background: "linear-gradient(135deg, #0f172a 80%, #1e293b 100%)",
+  text: "#fff",
+  card: "linear-gradient(135deg, #1e293b 80%, #334155 100%)",
+  cardSecondary: "linear-gradient(135deg, #334155 60%, #1e293b 100%)",
+  accent: "#6366f1",
+  accentSecondary: "#0ea5e9",
+  border: "#334155",
+  error: "#ef4444",
+  success: "#22c55e",
+  boxShadow: "0 4px 32px rgba(0,0,0,0.08)",
+  cardRadius: 24,
+  neonBlue: '#38bdf8',
+  neonCyan: '#22d3ee',
+  neonPurple: '#a855f7',
+  text: '#e5e7eb',
+  textSecondary: '#9ca3af',
+  textPlaceholder: '#6b7280',
+  error: '#fb7185',
+  warning: '#facc15',
+  success: '#4ade80',
+  info: '#38bdf8',
+  buttonGradient: 'linear-gradient(90deg, #38bdf8 0%, #a855f7 100%)',
+  buttonGlow: '0 0 8px #22d3ee, 0 0 16px #38bdf8',
+  borderGlow: '0 0 8px #22d3ee',
+  placeholder: '#6b7280',
+  errorAlt: '#f97316',
+  errorWarn: '#f97373',
+};
+
+export default theme;

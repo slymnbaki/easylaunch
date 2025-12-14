@@ -1,10 +1,26 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { createLaunchpad, listLaunchpads, buyToken, userPurchases } = require("../controllers/launchpadController");
+const Launchpad = require('../models/Launchpad');
 
-router.post("/create", createLaunchpad);
-router.get("/list", listLaunchpads);
-router.post("/buy", buyToken);
-router.get("/purchases/:buyer", userPurchases);
+
+// Launchpad ana endpoint: tüm launchpadleri döndür
+router.get('/', async (req, res) => {
+  try {
+    const launchpads = await Launchpad.find({});
+    res.json({ success: true, launchpads });
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Veri alınamadı', message: err.message });
+  }
+});
+
+// Launchpad list endpoint
+router.get('/list', async (req, res) => {
+  try {
+    const launchpads = await Launchpad.find({});
+    res.json({ success: true, launchpads });
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Veri alınamadı', message: err.message });
+  }
+});
 
 module.exports = router;
